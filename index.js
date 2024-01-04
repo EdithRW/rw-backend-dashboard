@@ -10,6 +10,9 @@ const app = express();
 //Configurar CORS
 app.use(cors());
 
+//Run public folder for testing+++++++++++++++++
+app.use(express.static('public'));
+
 //Lectura de Body
 app.use(express.json());
 
