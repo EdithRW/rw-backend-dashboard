@@ -130,10 +130,26 @@ const loginGoogle = async(req, res = response) =>{
     
 }
 
+const refreshToken = async(req,res = response) => {
+
+    const email = req.email;
+
+    let user = await User.findOne({email});
+
+    const token = await signToken(user); 
+
+    res.json({
+        ok : true ,
+        token, 
+        user
+    })
+}
+
 
 
 module.exports = {
     login,
     logout,
-    loginGoogle
+    loginGoogle,
+    refreshToken
 };

@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const validateJWT = (req, res, next) => {
     
     const token = req.header('x-token');
-    console.log(token);
     
     if (!token) {
         
@@ -13,8 +12,9 @@ const validateJWT = (req, res, next) => {
         });
     }
     try {
-        const {uid} = jwt.verify(token, process.env.JWT_SECRET);
+        const {uid, email} = jwt.verify(token, process.env.JWT_SECRET);
         req.uid = uid;
+        req.email = email;
 
         next();
 
