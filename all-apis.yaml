@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: rw-auth-apis
+  description: A collection of all rw auth APIs
+spec:
+  targets:
+    - ./api-info/auth-api.yaml
+    - ./api-info/users-api.yaml
+    - ./api-info/files-api.yaml
