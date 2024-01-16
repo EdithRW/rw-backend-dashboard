@@ -8,5 +8,5 @@ metadata:
     - auth
 spec:
   type: service
-  lifecycle: development
+  lifecycle: experimental
   owner: Devs
