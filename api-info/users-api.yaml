@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: users
+  description: Users managment API
+  tags:
+    - rw-studio
+    - rest
+    - users
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: Devs

@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: auth
+  description: Authentication API
+  tags:
+    - rw-studio
+    - rest
+    - auth
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: Devs
