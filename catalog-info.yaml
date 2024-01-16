@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: rw-auth-service
+  description: RW-Studio service application
+  tags:
+    - rw-studio
+    - auth
+spec:
+  type: service
+  lifecycle: development
+  owner: devs
