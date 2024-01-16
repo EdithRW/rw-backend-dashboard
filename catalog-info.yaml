@@ -5,7 +5,6 @@ metadata:
   description: RW-Studio service application
   tags:
     - rw-studio
-    - auth
 spec:
   type: service
   lifecycle: experimental
