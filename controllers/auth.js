@@ -25,7 +25,7 @@ const login = async(req, res = response) =>{
         // 2) Check if the email exists in the database
         let user = await User.findOne({email})
         if (!user) {
-            return res.status(400).json({ 
+            return res.status(404).json({ 
                 ok: false,
                 msg: "No user with that email found." 
             });

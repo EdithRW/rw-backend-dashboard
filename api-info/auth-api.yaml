@@ -11,10 +11,5 @@ spec:
   type: openapi
   lifecycle: experimental
   owner: Devs
-  definition: |
-    asyncapi: 2.0.0
-    info:
-      title: Auth API
-      version: '1.0.0'
-      description: |
-        The Smartylighting Streetlights API allows you to remotely manage the city lights.
+  definition: 
+    $text: ./swagger.yaml

@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  description: "This is the RW-Studio used API used for initial structure and learning"
+  version: 0.0.1
+  title: RW Studio
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: edith.saldana@rulesware.com
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit/
+tags:
+  - name: auth
+    description: Authentication endpoints
+  - name: uploads
+    description: Upload files to system
+  - name: users
+    description: Operations about user
+
+paths:
+  /auth:
+    post:
+      tags:
+        - auth
+      summary: Login to system
+      description: "Use this endpoint to login into RW Studio"
+      operationId: login
+      requestBody:
+        $ref: "#/components/requestBodies/Credentials"
+      responses:
+        "400":
+          description: Missing Credentials
+        "404":
+          description: No User Found
+        "200":
+          description: login succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    description: Status
+                    example: true
+                  msg:
+                    type: string
+                    description: Message
+                    example: login succesfully
+                  token:
+                    type: string
+                    description: Login Token
+
+  /auth/google:
+    post:
+      tags:
+        - auth
+      summary: Login to system using Google
+      description: "Use this endpoint to login into RW Studio using Google Oauth"
+      operationId: googleLogin
+      requestBody:
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Google OAuth token
+      responses:
+        "400":
+          description: Missing Token 
+        "200":
+          description: login succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    description: Status
+                    example: true
+                  msg:
+                    type: string
+                    description: Message
+                    example: login with google succesfull
+                  token:
+                    type: string
+                    description: Login Token
+                    
+  /auth/refresh:
+    post:
+      tags:
+        - auth
+      summary: Validate and Refresh auth token
+      description: "Use this endpoint to validate current token and refresh it"
+      operationId: refreshToken
+      requestBody:
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    description: User email
+      responses:
+        "200":
+          description: login succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    description: Status
+                    example: true
+                  token:
+                    type: string
+                    description: New Token
+                    
+servers:
+  - url: http://localhost:8000/api
+components:
+  requestBodies:
+    Credentials:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserCredentials"
+      description: User credentials object
+      required: true
+
+  schemas:
+    UserCredentials:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      xml:
+        name: UserCredentials
+
