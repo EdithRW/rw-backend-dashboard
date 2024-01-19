@@ -12,10 +12,6 @@ info:
 tags:
   - name: auth
     description: Authentication endpoints
-  - name: uploads
-    description: Upload files to system
-  - name: users
-    description: Operations about user
 
 paths:
   /auth:
