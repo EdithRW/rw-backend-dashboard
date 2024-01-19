@@ -14,7 +14,7 @@ tags:
     description: Authentication endpoints
 
 paths:
-  /auth:
+  /login:
     post:
       tags:
         - auth
