@@ -1,60 +1,142 @@
----
-openapi: "3.0.1"
+openapi: 3.0.0
 info:
-  title: "SearchCustomerDocuments"
-  version: "v1"
-servers:
-- url: "{server}/prweb/api/CustomerDocuments/v1"
-  description: "Default Application"
-  variables:
-    server:
-      default: "https://dev-rfs-02.rulesware.com"
+  description: "This is the RW-Studio used API used for initial structure and learning"
+  version: 0.0.1
+  title: RW Studio
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: edith.saldana@rulesware.com
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit/
 tags:
-- name: "Int-OBAB-NBE-Docs"
+  - name: auth
+    description: Authentication endpoints
+
 paths:
-  /SearchCustomerDocuments:
-    get:
+  /login:
+    post:
       tags:
-      - "Int-OBAB-NBE-Docs"
-      summary: ""
-      parameters:
-      - name: "SearchKey"
-        in: "query"
-        allowEmptyValue: true
-        schema:
-          type: "string"
-      - name: "SearchValue"
-        in: "query"
-        allowEmptyValue: true
-        schema:
-          type: "string"
+        - auth
+      summary: Login to system
+      description: "Use this endpoint to login into RW Studio"
+      operationId: login
+      requestBody:
+        $ref: "#/components/requestBodies/Credentials"
       responses:
-        default:
-          description: ""
+        "400":
+          description: Missing Credentials
+        "404":
+          description: No User Found
+        "200":
+          description: login succesfully
           content:
             application/json:
               schema:
-                type: "string"
-    put:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    description: Status
+                    example: true
+                  msg:
+                    type: string
+                    description: Message
+                    example: login succesfully
+                  token:
+                    type: string
+                    description: Login Token
+
+  /auth/google:
+    post:
       tags:
-      - "Int-OBAB-NBE-Docs"
-      summary: ""
-      parameters:
-      - name: "hola"
-        in: "header"
-        allowEmptyValue: true
-        schema:
-          $ref: "#/components/schemas/_unknown"
+        - auth
+      summary: Login to system using Google
+      description: "Use this endpoint to login into RW Studio using Google Oauth"
+      operationId: googleLogin
+      requestBody:
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Google OAuth token
       responses:
-        200:
-          description: "test"
+        "400":
+          description: Missing Token 
+        "200":
+          description: login succesfully
           content:
             application/json:
               schema:
-                type: "string"
-                enum:
-                - "test"
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    description: Status
+                    example: true
+                  msg:
+                    type: string
+                    description: Message
+                    example: login with google succesfull
+                  token:
+                    type: string
+                    description: Login Token
+                    
+  /auth/refresh:
+    post:
+      tags:
+        - auth
+      summary: Validate and Refresh auth token
+      description: "Use this endpoint to validate current token and refresh it"
+      operationId: refreshToken
+      requestBody:
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    description: User email
+      responses:
+        "200":
+          description: login succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    description: Status
+                    example: true
+                  token:
+                    type: string
+                    description: New Token
+                    
+servers:
+  - url: http://localhost:8000/api
 components:
+  requestBodies:
+    Credentials:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UserCredentials"
+      description: User credentials object
+      required: true
+
   schemas:
-    _unknown:
-      title: "Unknown"
+    UserCredentials:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      xml:
+        name: UserCredentials
+
