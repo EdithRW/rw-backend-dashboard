@@ -1,60 +1,15 @@
----
-openapi: "3.0.1"
-info:
-  title: "SearchCustomerDocuments"
-  version: "v1"
-servers:
-- url: "{server}/prweb/api/CustomerDocuments/v1"
-  description: "Default Application"
-  variables:
-    server:
-      default: "https://dev-rfs-02.rulesware.com"
-tags:
-- name: "Int-OBAB-NBE-Docs"
-paths:
-  /SearchCustomerDocuments:
-    get:
-      tags:
-      - "Int-OBAB-NBE-Docs"
-      summary: ""
-      parameters:
-      - name: "SearchKey"
-        in: "query"
-        allowEmptyValue: true
-        schema:
-          type: "string"
-      - name: "SearchValue"
-        in: "query"
-        allowEmptyValue: true
-        schema:
-          type: "string"
-      responses:
-        default:
-          description: ""
-          content:
-            application/json:
-              schema:
-                type: "string"
-    put:
-      tags:
-      - "Int-OBAB-NBE-Docs"
-      summary: ""
-      parameters:
-      - name: "hola"
-        in: "header"
-        allowEmptyValue: true
-        schema:
-          $ref: "#/components/schemas/_unknown"
-      responses:
-        200:
-          description: "test"
-          content:
-            application/json:
-              schema:
-                type: "string"
-                enum:
-                - "test"
-components:
-  schemas:
-    _unknown:
-      title: "Unknown"
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: auth
+  description: Authentication API
+  tags:
+    - rw-studio
+    - rest
+    - auth
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: Devs
+  definition: 
+    $text: ./swagger.yaml
