@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
   name: auth
-  description: Authentication API
+  description: Authentication API esdfsdf sdfsdfsdfsdf sdfsdfsdf sdfsdf 
   tags:
     - rw-studio
     - rest
